@@ -15,5 +15,6 @@ install the request package
 step 2:
 add name of the environment variable ``OPENAI_API_KEY``
 and the value will be the ``api key``
+from https://platform.openai.com/account/api-keys
 
 Please note that the script requires Python to be installed on your computer in order to work properly. If you haven't already installed Python, you can download it from the official website (https://www.python.org/downloads/) and follow the instructions provided to install it on your machine. Once Python is installed, you should be able to run the script without any issues.
