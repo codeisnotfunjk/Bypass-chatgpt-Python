@@ -19,6 +19,8 @@ from https://platform.openai.com/account/api-keys
 
 Please note that the script requires Python to be installed on your computer in order to work properly. If you haven't already installed Python, you can download it from the official website (https://www.python.org/downloads/) and follow the instructions provided to install it on your machine. Once Python is installed, you should be able to run the script without any issues.
 
+
+# run the web app
 to run the web app you need to run this command where the web_chat.py 
 ```
  streamlit run openai_st.py
