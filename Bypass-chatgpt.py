@@ -1,48 +1,51 @@
-import requests
+import openai
+import sys
+import dotenv
 import os
-import json
 
-# Set OpenAI API key from environment variable
-openai_token = os.environ["OPENAI_API_KEY"]
+dotenv.load_dotenv()
 
-# Set API request headers
-headers = {
-    'Content-Type': 'application/json',
-    'Authorization': f'Bearer {openai_token}'
-}
+# Color escape sequences
+COLOR_RED = '\033[91m'
+COLOR_GREEN = '\033[92m'
+COLOR_YELLOW = '\033[93m'
+COLOR_BLUE = '\033[94m'
 
-# Set model and API parameters
-model = "text-davinci-003"
-max_tokens = 4000
-temperature = 1.0
+openai.api_key = os.getenv('openai')
 
-# Main loop
-while True:
-    # Get input from user
-    input_text = input("You: ")
 
-    # Set API request body
-    body = {
-        "prompt": input_text,
-        "model": model,
-        "max_tokens": max_tokens,
-        "temperature": temperature
-    }
+def complete_text(prompt_user):
+    print('[AI]: ')
+    if prompt_user:
+        prompt_user = f"Act as a professional AI automation system capable of providing concise and accurate answers " \
+                      f"to various questions. Focus on understanding the problem or question at hand and provide " \
+                      f"brief responses without excessive descriptions. Prompt: {prompt_user}"
 
-    # Convert body to JSON
-    jsonBody = json.dumps(body)
-
-    # Send API request and capture response
-    response = requests.post(
-        "https://api.openai.com/v1/completions",
-        headers=headers,
-        data=jsonBody
-    )
-
-    # Check if API request was successful
-    if response.status_code == 200:
-        # Extract response text from JSON
-        output_text = response.json()["choices"][0]["text"]
-        print("AI: " + output_text)
+        for resp in openai.Completion.create(
+                engine='text-davinci-003',  # Use the text-davinci-003 engine for completion
+                prompt=prompt_user,
+                max_tokens=100,  # Adjust the value as per your requirement
+                temperature=0.7,  # Adjust the value as per your preference
+                n=1,  # Generate a single response
+                stop=None,  # Let the model determine the completion automatically
+                stream=True
+        ):
+            sys.stdout.write(resp.choices[0].text)
+            sys.stdout.flush()
     else:
-        print("API request failed with status code", response.status_code)
+        print(f"{COLOR_RED}[!]{COLOR_RED} please type something.")
+
+
+while True:
+    try:
+        prompt = input(f'{COLOR_BLUE}USER:{COLOR_BLUE} [+] ask me something: ')
+        complete_text(prompt)
+    except openai.APIError as error_api:
+        print(f'[!] you miss api key please try to change it to valid api,\nthis link to the openai api key '
+              f'https://platform.openai.com/account/api-keys \nthe error message: {error_api}')
+        break
+    except openai.InvalidRequestError as invalid:
+        print(f'{COLOR_YELLOW}[!]{COLOR_YELLOW} something what wrong\nERROR: {invalid}')
+    except KeyboardInterrupt:
+        print(f'{COLOR_YELLOW}[!]{COLOR_YELLOW} the script close by the user.')
+    print('')
