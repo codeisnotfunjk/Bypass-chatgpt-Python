@@ -60,7 +60,7 @@ def main():
         prompt = st.text_input('', key='input_prompt')
         tokens = st.slider('Number of Tokens', min_value=10, max_value=500, value=100)
         engine = st.selectbox('Engine', ['text-davinci-003', 'text-davinci-002'])
-        api_key = st.text_input('OpenAI API Key')
+        api_key = st.text_input('OpenAI API Key', type='password')
         if prompt:
             if api_key:
                 openai.api_key = api_key
