@@ -11,7 +11,7 @@ COLOR_GREEN = '\033[92m'
 COLOR_YELLOW = '\033[93m'
 COLOR_BLUE = '\033[94m'
 
-openai.api_key = os.getenv('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')
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
 
 def complete_text(prompt_user):
@@ -48,4 +48,4 @@ while True:
         print(f'{COLOR_YELLOW}[!]{COLOR_YELLOW} something what wrong\nERROR: {invalid}')
     except KeyboardInterrupt:
         print(f'{COLOR_YELLOW}[!]{COLOR_YELLOW} the script close by the user.')
-    print('')
+    print('')"
