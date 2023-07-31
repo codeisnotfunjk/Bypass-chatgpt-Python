@@ -11,7 +11,7 @@ COLOR_GREEN = '\033[92m'
 COLOR_YELLOW = '\033[93m'
 COLOR_BLUE = '\033[94m'
 
-openai.api_key = os.getenv('openai')
+openai.api_key = os.getenv('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')
 
 
 def complete_text(prompt_user):
