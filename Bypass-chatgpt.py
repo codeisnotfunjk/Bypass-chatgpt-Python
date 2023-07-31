@@ -48,4 +48,4 @@ while True:
         print(f'{COLOR_YELLOW}[!]{COLOR_YELLOW} something what wrong\nERROR: {invalid}')
     except KeyboardInterrupt:
         print(f'{COLOR_YELLOW}[!]{COLOR_YELLOW} the script close by the user.')
-    print('')"
+    print('')
